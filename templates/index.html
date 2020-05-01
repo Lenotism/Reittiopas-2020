@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Reittiopas</h1>
+{% endblock %}
+
+{% block body %}
+{% if error is defined %}
+<h3 style="color:red">Syötettäsi ei hyväksytty. Sinun pitää syöttää sekä lähtöpaikaksi että määränpääksi
+jokin kirjain väliltä A-R. Muussa tapauksessa saat tämän virheen</h3>
+{% endif %}
+{% endblock %}
+

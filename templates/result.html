@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Reittiopas</h1>
+{% endblock %}
+
+
+
+{% block body %}
+<p style="font-size:20px">Lähtöpaikka: {{ start }} <br> 
+Määränpää:  {{ end }} </p> <br><br>
+
+
+
+{% if start == end %}
+<p> Määränpääsi on sama kuin lähtöpaikkasi!</p>
+{% else %}
+<h3>Ehdotettu reitti:</h3>
+<p> Matkan arvioitu kesto: <b>{{ kesto }}</b> <br>
+Käytettävät linjat: 
+{% for i in linjat[0] %}
+<b>
+{{ i }}, </b>
+{% endfor %} <br>
+Vaihtopysäkit: <b>{{ vaihto1[0][0] }} </b>
+{% for i in vaihto2[0][0] %}
+ ja <b>{{ i }}</b>
+{% endfor %} 
+</p> <br> <br>
+
+<h3>Ohjeet ehdotetulle reitille:</h3>
+<p>Nouse linjaan <b>{{ linjat[0][0] }}</b> lähtöpisteessä <b>{{ start }}</b>.
+    {% if linjat[0][1] is defined %}
+    Vaihda linjaan <b>{{ linjat[0][1] }}</b> pisteessä <b>{{ vaihto1[0][0] }}</b>.
+    {% endif %}
+    {% if linjat [0][2] is defined %}
+    Jatka matkaasi pisteeseen <b>{{ vaihto2[0][0] }}</b> asti, jossa vaihda linjaan <b>{{ linjat[0][2] }}</b>.
+    {% endif %}
+    Jatka matkaasi kunnes saavut haluamaasi määränpäähän <b>{{ end }}</b>.
+
+</p>
+<br>
+<h3>Kaikki vaihtoehdot, joiden kesto on {{ kesto }}</h3>
+<style>table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 75%;
+  }
+  td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+  </style>
+<table>
+    <tr>
+      <th>Ensimmäinen linja</th>
+      <th>Vaihtopysäkki</th>
+      <th>Toinen linja</th>
+      <th>Vaihtopysäkki</th>
+      <th>Kolmas linja</th>
+    </tr>
+
+    {% for i in range(0, vaihtoehdotLKM) %}
+    <tr>
+      <td>{{ linjat [i][0] }}</td>
+      <td>{{ vaihto1[i][0] }}
+        {% for j in  vaihto1[i] %}
+        {% if j != vaihto1[i][0] %}
+        tai {{ j }} 
+        {% endif %}
+        {% endfor %}
+    </td>
+      <td>{{ linjat[i][1] }}</td>
+      <td>{{ vaihto2[i][0] }}
+        {% for j in  vaihto2[i] %}
+        {% if j != vaihto2[i][0] %}
+        tai  {{ j }}  
+        {% endif %}
+        {% endfor %}
+
+      </td>
+      <td>{{ linjat[i][2] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+<p> {{ results }} <br>
+    {{ vaihto1[0][1] }}
+</p>
+{% endif %} 
+
+
+
+{% endblock %}

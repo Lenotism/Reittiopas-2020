@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        div {
+          border: 1px solid black;
+          margin-top: 100px;
+          margin-bottom: 100px;
+          margin-right: 150px;
+          margin-left: 80px;
+          background-color: lightblue;
+        }
+        </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block head %}{% endblock %}
+</head>
+<body style ="background-color: rgb(202, 253, 255);margin-left:100px;margin-top:40px">
+     <form action="/result-page" method="POST">
+        <label>Lähtöpaikka: </label> <br>
+        <input type ='text' name='start_location'> 
+        <br><br>
+        <label>Määränpää: </label> <br>
+        <input type ='text' name='end_location'>
+        <br><br>
+        <input type="submit" value="Laske paras reitti!">
+    </form>
+<br><br>
+
+    {% block body %} 
+    <!-- Testausta varten. Lisää Bussi2.py sivuylle result_page() muuttujaksi result=result, ja näet
+     tämän tulosteen -->
+    <p>{{ results }}</p> 
+    
+    {% endblock %}
+</body>
+</html>
